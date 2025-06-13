@@ -15,6 +15,8 @@ param databaseName string
 param containerName string
 
 // ---- DEPLOYMENTS ----
+
+// Comos DB Account
 resource account 'Microsoft.DocumentDB/databaseAccounts@2023-11-15' = {
   name: toLower(accountName)
   location: location
@@ -37,6 +39,7 @@ resource account 'Microsoft.DocumentDB/databaseAccounts@2023-11-15' = {
   }
 }
 
+// Database for Cosmos
 resource database 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2023-11-15' = {
   parent: account
   name: databaseName
@@ -47,6 +50,7 @@ resource database 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2023-11-15
   }
 }
 
+// Container to store counter document/s
 resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-11-15' = {
   parent: database
   name: containerName
