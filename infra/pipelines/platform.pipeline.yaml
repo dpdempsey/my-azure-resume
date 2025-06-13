@@ -1,0 +1,33 @@
+trigger: none
+
+name: Deploy Bicep files
+
+parameters:
+- name: azureServiceConnection
+  type: string
+  default: 'azure-pipeline-conn'
+
+variables:
+  vmImageName: 'ubuntu-latest'
+  resourceGroupName: 'my_azure_resume_rg'
+  location: 'australiasoutheast'
+  templateFile: '../stacks/main.bicep'
+  csmParametersFile: '../stacks/parameters/parameters.jsonc'
+
+pool:
+  vmImage: $(vmImageName)
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: '$(resourceGroupName)'
+    location: '$(location)'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(templateFile)'
+    csmParametersFile: '$(csmParametersFile)'
+    overrideParameters: '-storageAccountType Standard_LRS'
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployPipelineTemplate'
+    connectedServiceName: '${{ parameters.azureServiceConnection }}'
