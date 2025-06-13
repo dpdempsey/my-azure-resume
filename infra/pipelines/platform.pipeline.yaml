@@ -11,8 +11,8 @@ variables:
   vmImageName: 'ubuntu-latest'
   resourceGroupName: 'my_azure_resume_rg'
   location: 'australiasoutheast'
-  templateFile: '../stacks/main.bicep'
-  csmParametersFile: '../stacks/parameters/parameters.jsonc'
+  templateFile: 'infra/stacks/main.bicep'
+  csmParametersFile: 'infra/stacks/parameters/parameters.jsonc'
 
 pool:
   vmImage: $(vmImageName)
