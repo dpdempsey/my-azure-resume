@@ -1,10 +1,12 @@
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Functions.Worker.Extensions.CosmosDB;
+using api.Models;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Extensions.Logging;
+using Microsoft.Azure.Functions.Worker.Http;
+using System.Net;
 
-namespace api;
+namespace api.Function;
 
 public class GetResumeCounter
 {
@@ -16,9 +18,28 @@ public class GetResumeCounter
     }
 
     [Function("GetResumeCounter")]
-    public IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequest req)
+    public static async Task<CounterResponse> Run(
+        [HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req,
+        [CosmosDBInput(
+            databaseName: "counterdb",
+            containerName: "AzureResume",
+            Connection = "CosmosDBConnection",
+            Id = "1",
+            PartitionKey = "1")] Counter counter,
+        FunctionContext executionContext)
     {
-        _logger.LogInformation("C# HTTP trigger function processed a request.");
-        return new OkObjectResult("Welcome to Azure Functions!");
+        var logger = executionContext.GetLogger("GetResumeCounter");
+        logger.LogInformation("Processing resume counter.");
+
+        counter.count += 1;
+
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        await response.WriteStringAsync($"New counter value: {counter.count}");
+
+        return new CounterResponse
+        {
+            UpdatedCounter = counter,
+            HttpResponse = response
+        };
     }
 }
