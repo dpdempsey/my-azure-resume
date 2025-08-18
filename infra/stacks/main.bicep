@@ -72,7 +72,7 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
         }
         {
           name: 'CosmosDBConnection'
-          value: account.properties.documentEndpoint // You may want to use a key vault or output the connection string
+          value: account.listConnectionStrings().connectionStrings[0].connectionString
         }
         {
           name: 'WEBSITE_RUN_FROM_PACKAGE'
