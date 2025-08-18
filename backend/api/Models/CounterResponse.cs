@@ -7,7 +7,7 @@ namespace api.Models
     public class CounterResponse
     {
         [CosmosDBOutput(databaseName: "counterdb", containerName: "AzureResume", Connection = "CosmosDBConnection", PartitionKey = "1")]
-        public required Counter UpdatedCounter { get; set; }
+    public Counter? UpdatedCounter { get; set; }
 
         [HttpResult]
         public required HttpResponseData HttpResponse { get; set; }
