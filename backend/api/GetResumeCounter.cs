@@ -34,7 +34,7 @@ public class GetResumeCounter
         counter.count += 1;
 
         var response = req.CreateResponse(HttpStatusCode.OK);
-        await response.WriteStringAsync($"New counter value: {counter.count}");
+        await response.WriteAsJsonAsync(new { count = counter.count });
 
         return new CounterResponse
         {
