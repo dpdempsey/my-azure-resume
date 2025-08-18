@@ -8,15 +8,8 @@ using System.Net;
 
 namespace api.Function;
 
-public class GetResumeCounter
+public static class GetResumeCounter
 {
-    private readonly ILogger<GetResumeCounter> _logger;
-
-    public GetResumeCounter(ILogger<GetResumeCounter> logger)
-    {
-        _logger = logger;
-    }
-
     [Function("GetResumeCounter")]
     public static async Task<CounterResponse> Run(
         [HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req,
@@ -30,7 +23,18 @@ public class GetResumeCounter
     {
         var logger = executionContext.GetLogger("GetResumeCounter");
         logger.LogInformation("Processing resume counter.");
-
+      
+        if (counter == null)
+        {
+            logger.LogError("Counter document not found in Cosmos DB.");
+            var notFoundResponse = req.CreateResponse(HttpStatusCode.NotFound);
+            await notFoundResponse.WriteAsJsonAsync(new { error = "Counter document not found." });
+            return new CounterResponse
+            {
+                UpdatedCounter = null,
+                HttpResponse = notFoundResponse
+            };
+        }
         counter.count += 1;
 
         var response = req.CreateResponse(HttpStatusCode.OK);
