@@ -79,7 +79,7 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
           value: '1'
         }
       ]
-      linuxFxVersion: 'DOTNET-ISOLATED|8.0'
+      windowsFxVersion: 'DOTNET-ISOLATED|8.0'
     }
     httpsOnly: true
   }
