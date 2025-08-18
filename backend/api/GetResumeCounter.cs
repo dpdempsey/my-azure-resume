@@ -23,7 +23,7 @@ public static class GetResumeCounter
     {
         var logger = executionContext.GetLogger("GetResumeCounter");
         logger.LogInformation("Processing resume counter.");
-
+      
         if (counter == null)
         {
             logger.LogError("Counter document not found in Cosmos DB.");
@@ -35,7 +35,6 @@ public static class GetResumeCounter
                 HttpResponse = notFoundResponse
             };
         }
-
         counter.count += 1;
 
         var response = req.CreateResponse(HttpStatusCode.OK);
