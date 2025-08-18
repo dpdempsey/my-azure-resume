@@ -60,7 +60,7 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
       appSettings: [
         {
           name: 'AzureWebJobsStorage'
-          value: storage.properties.primaryEndpoints.blob
+          value: storage.listKeys().keys[0].value
         }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
@@ -79,6 +79,7 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
           value: '1'
         }
       ]
+      linuxFxVersion: 'DOTNET-ISOLATED|8.0'
     }
     httpsOnly: true
   }
