@@ -1,6 +1,5 @@
-# Azure DevOps pipeline to build and deploy the Function App code using templates
-
 trigger: none
+pr: none
 
 name: Build and Deploy Azure Function App
 
