@@ -1,0 +1,43 @@
+# Template: Build Function App
+parameters:
+  buildConfiguration: 'Release'
+  publishDir: ''
+
+jobs:
+- job: Build
+  displayName: 'Build Function App'
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - task: UseDotNet@2
+      displayName: 'Install .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: '8.x'
+        installationPath: $(Agent.ToolsDirectory)/dotnet
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore dependencies'
+      inputs:
+        command: 'restore'
+        projects: 'backend/api/*.csproj'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build'
+      inputs:
+        command: 'build'
+        projects: 'backend/api/*.csproj'
+        arguments: '--configuration ${{ parameters.buildConfiguration }} --no-restore'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish'
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: 'backend/api/*.csproj'
+        arguments: '--configuration ${{ parameters.buildConfiguration }} --output ${{ parameters.publishDir }}'
+        zipAfterPublish: true
+
+    - publish: ${{ parameters.publishDir }}
+      artifact: functionapp
+      displayName: 'Publish Artifact'
