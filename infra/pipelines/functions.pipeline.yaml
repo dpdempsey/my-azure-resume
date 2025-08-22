@@ -1,0 +1,36 @@
+trigger: none
+pr: none
+
+name: Build and Deploy Azure Function App
+
+parameters:
+- name: azureServiceConnection
+  type: string
+  default: 'azure-pipeline-conn'
+- name: functionAppName
+  type: string
+  default: 'funcapp-lwra6hir2cwti' # Replace with your actual function app name or set as pipeline variable
+
+variables:
+  vmImageName: 'ubuntu-latest'
+  buildConfiguration: 'Release'
+  publishDir: '$(Build.ArtifactStagingDirectory)/publish'
+
+stages:
+- stage: Build
+  displayName: 'Build Function App'
+  jobs:
+  - template: templates/build-functionapp.yml
+    parameters:
+      buildConfiguration: $(buildConfiguration)
+      publishDir: $(publishDir)
+
+- stage: Deploy
+  displayName: 'Deploy Function App'
+  dependsOn: Build
+  jobs:
+  - template: templates/deploy-functionapp.yml
+    parameters:
+      azureServiceConnection: ${{ parameters.azureServiceConnection }}
+      functionAppName: ${{ parameters.functionAppName }}
+      publishDir: $(publishDir)
