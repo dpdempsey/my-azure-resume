@@ -1,0 +1,23 @@
+# Template: Deploy Function App
+parameters:
+  azureServiceConnection: ''
+  functionAppName: ''
+  publishDir: ''
+
+jobs:
+- job: Deploy
+  displayName: 'Deploy Function App'
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - download: current
+      artifact: functionapp
+      displayName: 'Download Build Artifact'
+
+    - task: AzureWebApp@1
+      displayName: 'Deploy Azure Function App'
+      inputs:
+        azureSubscription: ${{ parameters.azureServiceConnection }}
+        appType: 'functionApp'
+        appName: ${{ parameters.functionAppName }}
+        package: '$(Pipeline.Workspace)/functionapp/*.zip'
