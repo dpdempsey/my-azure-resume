@@ -15,7 +15,10 @@ param databaseName string
 param containerName string
 
 @description('Name of the storage account for the Function App')
-param storageAccountName string = 'funcsa${uniqueString(resourceGroup().id)}'
+param storageAccountNameFnApp string = 'funcsa${uniqueString(resourceGroup().id)}'
+
+@description('Name of the storage account for the Function App')
+param storageAccountNameWeb string = 'web${uniqueString(resourceGroup().id)}'
 
 @description('Name of the Function App')
 param functionAppName string = 'funcapp-${uniqueString(resourceGroup().id)}'
@@ -29,7 +32,7 @@ param errorDocument404Path string = 'error.html'
 // ---- DEPLOYMENTS ----
 // Storage Account for Function App
 resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
-  name: storageAccountName
+  name: storageAccountNameFnApp
   location: location
   sku: {
     name: 'Standard_LRS'
@@ -162,7 +165,7 @@ resource contributorRoleDefinition 'Microsoft.Authorization/roleDefinitions@2018
 }
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-06-01' = {
-  name: storageAccountName
+  name: storageAccountNameWeb
   location: location
   kind: 'StorageV2'
   sku: {
