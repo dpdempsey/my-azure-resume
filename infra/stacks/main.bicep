@@ -20,18 +20,6 @@ param storageAccountName string = 'funcsa${uniqueString(resourceGroup().id)}'
 @description('Name of the Function App')
 param functionAppName string = 'funcapp-${uniqueString(resourceGroup().id)}'
 
-@description('Storage account for static website')
-param staticSiteStorageName string = 'web${uniqueString(resourceGroup().id)}'
-
-@description('CDN profile name')
-param cdnProfileName string = 'cdn${uniqueString(resourceGroup().id)}'
-
-@description('CDN endpoint name')
-param cdnEndpointName string = 'webcdn${uniqueString(resourceGroup().id)}'
-
-@description('Custom domain for CDN (optional)')
-param customDomainName string = '' // e.g. 'www.example.com'
-
 // ---- DEPLOYMENTS ----
 // Storage Account for Function App
 resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
@@ -160,87 +148,6 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
     }
   }
 }
-
-resource staticSiteStorage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
-  name: staticSiteStorageName
-  location: location
-  sku: {
-    name: 'Standard_LRS'
-  }
-  kind: 'StorageV2'
-  properties: {
-    accessTier: 'Hot'
-  }
-}
-
-resource staticSiteWeb 'Microsoft.Storage/storageAccounts/blobServices@2023-01-01' = {
-  name: 'default'
-  parent: staticSiteStorage
-  properties: {
-    cors: {
-      corsRules: []
-    }
-    deleteRetentionPolicy: {
-      enabled: false
-    }
-    isVersioningEnabled: false
-    changeFeed: {
-      enabled: false
-    }
-    restorePolicy: {
-      enabled: false
-    }
-    containerDeleteRetentionPolicy: {
-      enabled: false
-    }
-    defaultServiceVersion: '2020-06-12'
-  }
-}
-
-resource staticSiteConfig 'Microsoft.Storage/storageAccounts/staticWebsite@2023-01-01' = {
-  name: 'default'
-  parent: staticSiteStorage
-  properties: {
-    enabled: true
-    indexDocument: 'index.html'
-    error404Document: '404.html'
-  }
-}
-
-resource cdnProfile 'Microsoft.Cdn/profiles@2023-05-01' = {
-  name: cdnProfileName
-  location: location
-  sku: {
-    name: 'Standard_Microsoft'
-  }
-}
-
-resource cdnEndpoint 'Microsoft.Cdn/profiles/endpoints@2023-05-01' = {
-  parent: cdnProfile
-  name: cdnEndpointName
-  location: location
-  properties: {
-    origins: [
-      {
-        name: 'staticSiteOrigin'
-        properties: {
-          hostName: '${staticSiteStorage.name}.web.core.${environment().suffixes.storage}'
-        }
-      }
-    ]
-    isHttpAllowed: false
-    isHttpsAllowed: true
-    isCompressionEnabled: true
-    contentTypesToCompress: [
-      'text/html'
-      'text/css'
-      'application/javascript'
-      'application/json'
-      'image/svg+xml'
-    ]
-  }
-}
-
 
 output location string = location
 output name string = container.name
