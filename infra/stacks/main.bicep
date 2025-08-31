@@ -15,6 +15,7 @@ param databaseName string
 param containerName string
 
 @description('Name of the storage account for the Function App')
+
 param storageAccountNameFnApp string = 'funcsa${uniqueString(resourceGroup().id)}'
 
 @description('Name of the storage account for the Function App')
