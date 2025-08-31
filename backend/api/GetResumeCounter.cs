@@ -12,7 +12,7 @@ public static class GetResumeCounter
 {
     [Function("GetResumeCounter")]
     public static async Task<CounterResponse> Run(
-        [HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req,
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req,
         [CosmosDBInput(
             databaseName: "counterdb",
             containerName: "AzureResume",
