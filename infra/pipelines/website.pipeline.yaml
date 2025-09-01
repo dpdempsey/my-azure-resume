@@ -31,7 +31,7 @@ steps:
   displayName: 'Enable static website hosting and upload files'
   inputs:
     azureSubscription: ${{ parameters.azureServiceConnection }}
-    scriptType: 'ps'
+    scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
       # Enable static website hosting
