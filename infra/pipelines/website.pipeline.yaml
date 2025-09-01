@@ -2,18 +2,8 @@ trigger: none
 
 name: Deploy Azure Static Web App
 
-parameters:
-- name: azureStaticWebAppsApiToken
-  type: string
-  default: '' # Set this as a pipeline secret variable or in the UI
-- name: appLocation
-  type: string
-  default: 'frontend'
-- name: outputLocation
-  type: string
-  default: '' # e.g. 'build' or 'dist' if you have a build step
-
 variables:
+- group: resume_variables
   vmImageName: 'ubuntu-latest'
 
 pool:
@@ -23,8 +13,8 @@ steps:
 - task: AzureStaticWebApp@0
   displayName: 'Deploy to Azure Static Web App'
   inputs:
-    app_location: ${{ parameters.appLocation }}
-    output_location: ${{ parameters.outputLocation }}
+    app_location: 'frontend'
+    output_location: ''
     skip_app_build: true
     skip_api_build: true
     azure_static_web_apps_api_token: $(deployment_token)
