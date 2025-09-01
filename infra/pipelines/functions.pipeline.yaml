@@ -9,7 +9,7 @@ parameters:
   default: 'azure-pipeline-conn'
 - name: functionAppName
   type: string
-  default: 'funcapp-lwra6hir2cwti' # Replace with your actual function app name or set as pipeline variable
+  default: 'funcapp-azure-resume'
 
 variables:
   vmImageName: 'ubuntu-latest'
