@@ -17,8 +17,8 @@ param containerName string
 @description('Name of the storage account for the Function App')
 param storageAccountNameFnApp string = 'funcsa${uniqueString(resourceGroup().id)}'
 
-@description('Name of the storage account for the Function App')
-param storageAccountNameWeb string = 'staticweb${uniqueString(resourceGroup().id)}'
+@description('Name of the Static Web App')
+param staticWebAppName string = 'swa-${uniqueString(resourceGroup().id)}'
 
 @description('Name of the Function App')
 param functionAppName string = 'funcapp-azure-resume'
@@ -152,13 +152,12 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
   }
 }
 
-// Storage account for website static hosting
-resource storageAccount 'Microsoft.Storage/storageAccounts@2021-06-01' = {
-  name: storageAccountNameWeb
+resource staticWebApp 'Microsoft.Web/staticSites@2023-01-01' = {
+  name: staticWebAppName
   location: location
-  kind: 'StorageV2'
   sku: {
-    name: 'Standard_LRS'
+    name: 'Free'
+    tier: 'Free'
   }
 }
 

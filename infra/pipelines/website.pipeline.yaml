@@ -1,52 +1,30 @@
 trigger: none
 
-name: Enable Static Website and Upload Files
+name: Deploy Azure Static Web App
 
 parameters:
-- name: azureServiceConnection
+- name: azureStaticWebAppsApiToken
   type: string
-  default: 'azure-pipeline-conn'
-- name: resourceGroupName
+  default: '' # Set this as a pipeline secret variable or in the UI
+- name: appLocation
   type: string
-  default: 'my_azure_resume_rg'
-- name: storageAccountName
+  default: 'frontend'
+- name: outputLocation
   type: string
-  default: 'staticweblwra6hir2cwti'
-- name: indexDocumentPath
-  type: string
-  default: 'index.html'
-- name: errorDocument404Path
-  type: string
-  default: 'error.html'
+  default: '' # e.g. 'build' or 'dist' if you have a build step
 
 variables:
   vmImageName: 'ubuntu-latest'
-  frontendFolder: 'frontend'
 
 pool:
   vmImage: $(vmImageName)
 
 steps:
-- task: AzureCLI@2
-  displayName: 'Enable static website hosting and upload files'
+- task: AzureStaticWebApp@0
+  displayName: 'Deploy to Azure Static Web App'
   inputs:
-    azureSubscription: ${{ parameters.azureServiceConnection }}
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      # Enable static website hosting
-      az storage blob service-properties update \
-        --account-name ${{ parameters.storageAccountName }} \
-        --static-website \
-        --index-document ${{ parameters.indexDocumentPath }} \
-        --404-document ${{ parameters.errorDocument404Path }} \
-        --auth-mode login
-
-      # Upload all files from the frontend folder to $web
-      az storage blob upload-batch \
-        --account-name ${{ parameters.storageAccountName }} \
-        --destination '$web' \
-        --source $(frontendFolder) \
-        --overwrite \
-        --auth-mode login
-    failOnStandardError: false
+    app_location: ${{ parameters.appLocation }}
+    output_location: ${{ parameters.outputLocation }}
+    skip_app_build: true
+    skip_api_build: true
+    azure_static_web_apps_api_token: $(deployment_token)
