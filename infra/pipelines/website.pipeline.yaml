@@ -39,7 +39,7 @@ steps:
         --account-name ${{ parameters.storageAccountName }} \
         --static-website \
         --index-document ${{ parameters.indexDocumentPath }} \
-        --404-document ${{ parameters.errorDocument404Path }}
+        --404-document ${{ parameters.errorDocument404Path }} \
         --auth-mode login
 
       # Upload all files from the frontend folder to $web
@@ -47,6 +47,6 @@ steps:
         --account-name ${{ parameters.storageAccountName }} \
         --destination '$web' \
         --source $(frontendFolder) \
-        --overwrite
+        --overwrite \
         --auth-mode login
     failOnStandardError: true
