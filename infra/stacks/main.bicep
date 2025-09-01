@@ -15,11 +15,10 @@ param databaseName string
 param containerName string
 
 @description('Name of the storage account for the Function App')
-
-param storageAccountNameFnApp string = 'funcappsa'
+param storageAccountNameFnApp string = 'funcappsa${uniqueString(resourceGroup().id)}'
 
 @description('Name of the storage account for the Function App')
-param storageAccountNameWeb string = 'staticwebsitesa'
+param storageAccountNameWeb string = 'staticwebsite${uniqueString(resourceGroup().id)}'
 
 @description('Name of the Function App')
 param functionAppName string = 'funcapp-azure-resume'
