@@ -11,7 +11,7 @@ parameters:
   default: 'my_azure_resume_rg'
 - name: storageAccountName
   type: string
-  default: 'staticwebsitesa'
+  default: 'staticweblwra6hir2cwti'
 - name: indexDocumentPath
   type: string
   default: 'index.html'
@@ -45,6 +45,6 @@ steps:
       az storage blob upload-batch \
         --account-name ${{ parameters.storageAccountName }} \
         --destination '$web' \
-        --source './frontend' \
+        --source $(frontendFolder) \
         --overwrite
     failOnStandardError: true
