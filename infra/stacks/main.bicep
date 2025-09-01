@@ -162,6 +162,10 @@ resource staticWebApp 'Microsoft.Web/staticSites@2023-01-01' = {
     name: 'Free'
     tier: 'Free'
   }
+  properties: {
+    repositoryUrl: '' // leave blank for manual deployment
+    branch: ''        // leave blank for manual deployment
+}
 }
 
 output location string = location
