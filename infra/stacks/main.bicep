@@ -164,8 +164,8 @@ resource staticWebApp 'Microsoft.Web/staticSites@2023-01-01' = {
   }
   properties: {
     repositoryUrl: '' // leave blank for manual deployment
-    branch: ''        // leave blank for manual deployment
-}
+    branch: ''
+  }
 }
 
 output location string = location
