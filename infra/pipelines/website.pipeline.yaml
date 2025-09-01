@@ -1,0 +1,50 @@
+trigger: none
+
+name: Enable Static Website and Upload Files
+
+parameters:
+- name: azureServiceConnection
+  type: string
+  default: 'azure-pipeline-conn'
+- name: resourceGroupName
+  type: string
+  default: 'my_azure_resume_rg'
+- name: storageAccountName
+  type: string
+  default: 'staticwebsitesa'
+- name: indexDocumentPath
+  type: string
+  default: 'index.html'
+- name: errorDocument404Path
+  type: string
+  default: 'error.html'
+
+variables:
+  vmImageName: 'ubuntu-latest'
+  frontendFolder: 'frontend'
+
+pool:
+  vmImage: $(vmImageName)
+
+steps:
+- task: AzureCLI@2
+  displayName: 'Enable static website hosting and upload files'
+  inputs:
+    azureSubscription: ${{ parameters.azureServiceConnection }}
+    scriptType: 'ps'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      # Enable static website hosting
+      az storage blob service-properties update \
+        --account-name ${{ parameters.storageAccountName }} \
+        --static-website \
+        --index-document ${{ parameters.indexDocumentPath }} \
+        --404-document ${{ parameters.errorDocument404Path }}
+
+      # Upload all files from the frontend folder to $web
+      az storage blob upload-batch \
+        --account-name ${{ parameters.storageAccountName }} \
+        --destination '$web' \
+        --source $(frontendFolder) \
+        --overwrite
+    failOnStandardError: true

@@ -16,13 +16,13 @@ param containerName string
 
 @description('Name of the storage account for the Function App')
 
-param storageAccountNameFnApp string = 'funcsa${uniqueString(resourceGroup().id)}'
+param storageAccountNameFnApp string = 'funcappsa'
 
 @description('Name of the storage account for the Function App')
-param storageAccountNameWeb string = 'web${uniqueString(resourceGroup().id)}'
+param storageAccountNameWeb string = 'staticwebsitesa'
 
 @description('Name of the Function App')
-param functionAppName string = 'funcapp-${uniqueString(resourceGroup().id)}'
+param functionAppName string = 'funcapp-azure-resume'
 
 @description('The path to the web index document.')
 param indexDocumentPath string = 'index.html'
