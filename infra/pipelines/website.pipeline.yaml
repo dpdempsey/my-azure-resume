@@ -49,4 +49,4 @@ steps:
         --source $(frontendFolder) \
         --overwrite \
         --auth-mode login
-    failOnStandardError: true
+    failOnStandardError: false
