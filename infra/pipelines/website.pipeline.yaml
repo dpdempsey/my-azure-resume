@@ -4,7 +4,8 @@ name: Deploy Azure Static Web App
 
 variables:
 - group: resume_variables
-  vmImageName: 'ubuntu-latest'
+- name: vmImageName
+  value: 'ubuntu-latest'
 
 pool:
   vmImage: $(vmImageName)
