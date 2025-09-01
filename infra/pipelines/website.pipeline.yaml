@@ -45,6 +45,6 @@ steps:
       az storage blob upload-batch \
         --account-name ${{ parameters.storageAccountName }} \
         --destination '$web' \
-        --source $(frontendFolder) \
+        --source './frontend' \
         --overwrite
     failOnStandardError: true
