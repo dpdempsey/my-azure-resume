@@ -40,6 +40,7 @@ steps:
         --static-website \
         --index-document ${{ parameters.indexDocumentPath }} \
         --404-document ${{ parameters.errorDocument404Path }}
+        --auth-mode login
 
       # Upload all files from the frontend folder to $web
       az storage blob upload-batch \
@@ -47,4 +48,5 @@ steps:
         --destination '$web' \
         --source $(frontendFolder) \
         --overwrite
+        --auth-mode login
     failOnStandardError: true
