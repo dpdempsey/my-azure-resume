@@ -1,4 +1,10 @@
-trigger: none
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - infra/**
 pr: none
 
 name: Deploy Bicep files
