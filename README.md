@@ -1,4 +1,3 @@
-
 # ☁️ my-azure-resume
 
 Welcome to my take on the [Cloud Resume Challenge](https://cloudresumechallenge.dev/) — built with Microsoft Azure! 🚀
@@ -22,17 +21,23 @@ All infrastructure is deployed using Bicep (Azure's IaC language), reflecting th
 ## 🎨 Frontend
 The site is based on the [CeeVee template](https://styleshout.com/free-templates/ceevee/) (credit: [styleshout.com](https://styleshout.com)), with lots of customizations and clean-up. 
 
-Deployment is fully automated via the `website.pipeline.yaml` CI/CD pipeline. Any changes merged to `main` in the `frontend/` folder are instantly published! ✨
+Deployment is fully automated via the `website.pipeline.yaml` CI/CD pipeline. Any changes merged to `main` in the `frontend/` folder are instantly published! 
+
+This approach allows me to completely re-do the website, possisbly using something different like React, and have it be easily deployed and hosted on Azure! ✨
 
 
 ## 🖥️ Backend
 The visitor counter is powered by an Azure Function that reads and updates a document in Cosmos DB. All build and deployment steps for the function app are managed by pipelines in [`infra/pipelines`](./infra/pipelines). 🔄
 
 
+## 🤖 GitHub Copilot Agent Mode
+Much of this project was built using GitHub Copilot's agent mode for rapid code generation, automation, and troubleshooting. It made the process faster and more efficient.
+
+
 ## 🚧 Future Enhancements
-- [ ] Add more Azure services (e.g., monitoring, CDN)
-- [ ] Improve accessibility and performance
-- [ ] Add more backend features
+- [ ] Add more API (Google Bookshelf reading list)
+- [ ] Re-do website in react or AngularJS
+- [ ] Create a resume chatbot using an LLM and agent design patterns
 
 ---
 
