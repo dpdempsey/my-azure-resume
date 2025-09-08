@@ -1,11 +1,6 @@
 pr: none
 trigger:
-  branches:
-    include:
-      - main
-  paths:
-    include:
-      - frontend/**
+- main
 
 name: Deploy Azure Static Web App
 
