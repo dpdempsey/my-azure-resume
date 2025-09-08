@@ -15,15 +15,21 @@ param databaseName string
 param containerName string
 
 @description('Name of the storage account for the Function App')
-param storageAccountName string = 'funcsa${uniqueString(resourceGroup().id)}'
+param storageAccountNameFnApp string = 'funcsa${uniqueString(resourceGroup().id)}'
+
+@description('Name of the Static Web App')
+param staticWebAppName string = 'swa-${uniqueString(resourceGroup().id)}'
 
 @description('Name of the Function App')
-param functionAppName string = 'funcapp-${uniqueString(resourceGroup().id)}'
+param functionAppName string = 'funcapp-azure-resume'
+
+@description('Location for the Static Web App')
+param staticWebAppLocation string = 'eastasia'
 
 // ---- DEPLOYMENTS ----
 // Storage Account for Function App
 resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
-  name: storageAccountName
+  name: storageAccountNameFnApp
   location: location
   sku: {
     name: 'Standard_LRS'
@@ -149,7 +155,18 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
   }
 }
 
-
+resource staticWebApp 'Microsoft.Web/staticSites@2023-01-01' = {
+  name: staticWebAppName
+  location: staticWebAppLocation
+  sku: {
+    name: 'Free'
+    tier: 'Free'
+  }
+  properties: {
+    repositoryUrl: '' // leave blank for manual deployment
+    branch: ''
+  }
+}
 
 output location string = location
 output name string = container.name
