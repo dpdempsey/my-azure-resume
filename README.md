@@ -1,8 +1,8 @@
 # ☁️ my-azure-resume
 
-Welcome to my take on the [Cloud Resume Challenge](https://cloudresumechallenge.dev/) — built with Microsoft Azure! 🚀
+Welcome to my take on the [Cloud Resume Challenge](https://cloudresumechallenge.dev/) — built with Microsoft Azure.
 
-Inspired by [A Cloud Guru's video](https://www.youtube.com/watch?v=ieYrBWmkfno&t=3912s), I added my own twists and enhancements. This project was a fantastic way to level up my Azure and web development skills while studying for the AZ-204 exam. Feel free to fork this repo and create your own cloud-powered resume! 💡
+Inspired by [A Cloud Guru's video](https://www.youtube.com/watch?v=ieYrBWmkfno&t=3912s), I extended it with my own enhancements. This project was a fantastic way to level up my Azure and web development skills. Feel free to fork this repo and create your own version! 💡
 
 
 ## 🏗️ Architecture
@@ -19,11 +19,11 @@ All infrastructure is deployed using Bicep (Azure's IaC language), reflecting th
 
 
 ## 🎨 Frontend
-The site is based on the [CeeVee template](https://styleshout.com/free-templates/ceevee/) (credit: [styleshout.com](https://styleshout.com)), with lots of customizations and clean-up. 
+The site is based on the [CeeVee template](https://styleshout.com/free-templates/ceevee/) (credit: [styleshout.com](https://styleshout.com)), albeit a much trimmed down version.  
 
 Deployment is fully automated via the `website.pipeline.yaml` CI/CD pipeline. Any changes merged to `main` in the `frontend/` folder are instantly published! 
 
-This approach allows me to completely re-do the website, possisbly using something different like React, and have it be easily deployed and hosted on Azure! ✨
+This approach allows me to completely re-do the website, possisbly even using a different framework or stack, and have it be easily deployed and hosted on Azure! ✨
 
 
 ## 🖥️ Backend
@@ -41,4 +41,4 @@ Much of this project was built using GitHub Copilot's agent mode for rapid code 
 
 ---
 
-Thanks for checking out my project! If you have feedback or want to connect, feel free to reach out. 😊
+Thanks for reading this far! If you have feedback or want to connect, feel free to reach out. 😊
