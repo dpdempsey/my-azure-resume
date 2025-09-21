@@ -3,7 +3,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 })
 
 const functionApi = 'https://funcapp-azure-resume.azurewebsites.net/api/GetResumeCounter?'
-const localFunctionApi = 'http://localhost:7071/api/GetResumeCounter'
 
 const getVisitCount = () =>{
     let count = 30;

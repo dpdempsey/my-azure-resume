@@ -1,3 +1,26 @@
+(function() {
+    // Website visit counter logic
+    const functionApi = 'https://funcapp-azure-resume.azurewebsites.net/api/GetResumeCounter?';
+
+    const getVisitCount = () => {
+        let count = 30;
+        fetch(functionApi).then(response => {
+            return response.json();
+        }).then(response => {
+            console.log("Website called function API");
+            count = response.count;
+            const counterElem = document.getElementById("counter");
+            if (counterElem) counterElem.innerText = count;
+        }).catch(function(error){
+            console.log(error);
+        });
+        return count;
+    };
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        getVisitCount();
+    });
+})();
 /* ===================================================================
  * Ceevee 2.0.0 - Main JS
  *
