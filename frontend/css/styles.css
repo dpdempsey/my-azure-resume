@@ -3897,6 +3897,16 @@ input[type="button"].btn--primary:focus {
     border-bottom: none;
     padding-bottom: 0;
     margin-bottom: 0;
+    }
+
+    /* Remove bullets from lists in resume sections */
+    .s-resume__section ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin-left: 0;
+    }
+    .s-resume__section ul li {
+        margin-bottom: 0.5em;
 }
 
 /* ------------------------------------------------------------------- 
