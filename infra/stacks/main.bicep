@@ -23,8 +23,6 @@ param staticWebAppName string = 'swa-${uniqueString(resourceGroup().id)}'
 @description('Name of the Function App')
 param functionAppName string = 'funcapp-azure-resume'
 
-@description('Location for the Static Web App')
-param staticWebAppLocation string = 'eastasia'
 
 // ---- DEPLOYMENTS ----
 // Storage Account for Function App
@@ -157,7 +155,7 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
 
 resource staticWebApp 'Microsoft.Web/staticSites@2023-01-01' = {
   name: staticWebAppName
-  location: staticWebAppLocation
+  location: location
   sku: {
     name: 'Free'
     tier: 'Free'

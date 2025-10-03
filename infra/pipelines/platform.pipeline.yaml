@@ -16,8 +16,8 @@ parameters:
 
 variables:
   vmImageName: 'ubuntu-latest'
-  resourceGroupName: 'my_azure_resume_rg'
-  location: 'australiasoutheast'
+  resourceGroupName: 'azure_resume_rg'
+  location: 'eastasia'
   templateFile: 'infra/stacks/main.bicep'
   csmParametersFile: 'infra/stacks/parameters/parameters.jsonc'
 
