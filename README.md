@@ -1,6 +1,6 @@
 # ☁️ my-azure-resume
 
-Welcome to my take on the [Cloud Resume Challenge](https://cloudresumechallenge.dev/) — built with Azure.
+Welcome to my take on the [Cloud Resume Challenge](https://cloudresumechallenge.dev/) using Azure.
 
 This project was inspired by [A Cloud Guru's video](https://www.youtube.com/watch?v=ieYrBWmkfno&t=3912s) and was a great way to showcase my Azure, DevOps and development skills.
 
